@@ -1,4 +1,4 @@
-package com.example.homebar.view.viewModel
+package com.example.homebar.welcome
 
 import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData

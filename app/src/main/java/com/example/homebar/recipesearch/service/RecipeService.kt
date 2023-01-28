@@ -9,5 +9,7 @@ interface RecipeService {
 
     //@GET("recipe")
     @GET
-    suspend fun getRecipe(@Url url: String) : RecipeDTO
+   suspend fun getRecipe(@Url url: String) : RecipeDTO
+   /* @GET("search.php?s=blue")
+    suspend fun getRecipe() : RecipeDTO*/
 }

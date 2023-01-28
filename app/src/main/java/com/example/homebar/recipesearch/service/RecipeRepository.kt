@@ -4,16 +4,39 @@ import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.service.model.RecipeDTO
 
-class HomeBarRepository(
+class RecipeSearchRepository(
     private val homeBarService: RecipeService
 ) {
-    suspend fun getRecipeByCocktailName(inputPart: String):Recipe =
-        homeBarService.getRecipe("$COCKTAIL_BY_NAME$inputPart").toDomainModel()
+    suspend fun getRecipeByCocktailName(cocktailName: String): Recipe {
+        val url = "$COCKTAIL_BY_NAME$cocktailName"
+        return homeBarService.getRecipe(url).toDomainModel()
+    }
+
+    suspend fun getRecipeByIngredients(ingredients: String): Recipe {
+        val url = "$COCKTAIL_BY_INGREDIENT$ingredients"
+        return homeBarService.getRecipe(url).toDomainModel()
+    }
+
+    suspend fun getRecipeByGlass(glass: String): Recipe {
+        val url = "$COCKTAIL_BY_GLASS$glass"
+        return homeBarService.getRecipe(url).toDomainModel()
+    }
+
+    suspend fun getRecipeByAlcohol(alcohol: String): Recipe {
+        val url = "$COCKTAIL_BY_ALCOHOL$alcohol"
+        return homeBarService.getRecipe(url).toDomainModel()
+    }
+
+
+     suspend fun getRecipeByID(id: String): Recipe {
+        val url = "$COCKTAIL_BY_ID$id"
+        return homeBarService.getRecipe(url).toDomainModel()
+}
 }
 
 
-fun RecipeDTO.toDomainModel(): Recipe {
-    return Recipe(drinks = this.drinks?.map {
+fun RecipeDTO?.toDomainModel(): Recipe {
+    return Recipe(drinks = this?.drinks?.map {
         Drinks(
             idDrink = it.idDrink,
             strDrink = it.strDrink,
@@ -70,3 +93,7 @@ fun RecipeDTO.toDomainModel(): Recipe {
 
 
 const val COCKTAIL_BY_NAME = "search.php?s="
+const val COCKTAIL_BY_INGREDIENT = "filter.php?i="
+const val COCKTAIL_BY_GLASS = "filter.php?g="
+const val COCKTAIL_BY_ALCOHOL = "filter.php?a="
+const val COCKTAIL_BY_ID = "lookup.php?i="

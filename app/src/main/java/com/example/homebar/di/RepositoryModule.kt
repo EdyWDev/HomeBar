@@ -1,6 +1,6 @@
 package com.example.homebar.di
 
-import com.example.homebar.recipesearch.service.HomeBarRepository
+import com.example.homebar.recipesearch.service.RecipeSearchRepository
 import com.example.homebar.recipesearch.service.RecipeService
 import dagger.Module
 import dagger.Provides
@@ -17,6 +17,6 @@ object RepositoryModule {
     @Provides
     fun provideHomeBarRepository(
         homeBarService: RecipeService
-    ): HomeBarRepository =
-        HomeBarRepository(homeBarService)
+    ): RecipeSearchRepository =
+        RecipeSearchRepository(homeBarService)
 }

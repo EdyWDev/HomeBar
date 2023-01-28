@@ -1,91 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:binding="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <data>
+
         <variable
             name="viewmodel"
             type="com.example.homebar.recipesearch.RecipeSearchViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".recipesearch.ui.RecipeSearchActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".recipesearch.ui.RecipeSearchActivity">
 
-    <TextView
-        android:id="@+id/search_byTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Search by:"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/search_nameBT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.197"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/search_byTextView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:text="Search by:"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/searchSpinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/search_nameBT"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/search_alcoholBT"
-        app:layout_constraintEnd_toEndOf="@+id/search_byTV"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_byTV"
-        />
+        <Spinner
+            android:id="@+id/searchSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_byTextView" />
 
-    <Button
-        android:id="@+id/search_ingredientsBT"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="ingredients"
-        app:layout_constraintBottom_toTopOf="@+id/search_glassBT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
 
-        app:layout_constraintStart_toEndOf="@+id/search_nameBT"
-        app:layout_constraintTop_toTopOf="@+id/search_nameBT"
-        app:layout_constraintVertical_bias="0.0" />
+        <Spinner
+            android:id="@+id/typeOfGlassSpinner"
+        android:visibility="gone"
+            android:layout_width="345dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchSpinner"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="78dp" />
 
-    <Button
-        android:id="@+id/search_glassBT"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="glass"
-        app:layout_constraintEnd_toEndOf="@+id/search_nameBT"
-        app:layout_constraintStart_toStartOf="@+id/search_nameBT"
-        app:layout_constraintTop_toBottomOf="@+id/search_nameBT" />
+        <ImageButton
+            android:id="@+id/glassSearchButton"
+            android:visibility="gone"
+            android:layout_width="42dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toEndOf="@+id/typeOfGlassSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/searchSpinner" />
 
-    <Button
-        android:id="@+id/search_alcoholBT"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="alcohol"
-        binding:goneUnless="@{viewmodel.shouldAlcoholCategoryBeSeen}"
-        app:layout_constraintBottom_toBottomOf="@+id/search_glassBT"
-        app:layout_constraintEnd_toEndOf="@+id/search_ingredientsBT"
-        app:layout_constraintStart_toStartOf="@+id/search_ingredientsBT"
-        app:layout_constraintTop_toTopOf="@+id/search_glassBT"
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="65dp"
+            android:hint="Enter your search term"
+            android:text="@={viewmodel.searchViewMessage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfGlassSpinner" />
 
-        />
+        <ImageButton
+            android:id="@+id/searchImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfGlassSpinner" />
 
-    <SearchView
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/search_glassBT"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/search_glassBT"
-        app:layout_constraintTop_toBottomOf="@+id/search_glassBT" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_List"
+            android:layout_width="394dp"
+            android:layout_height="620dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            tools:listitem="@layout/recyclerview_item_row" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- <TextView
+             android:id="@+id/txt_Recipe"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="30dp"
+             android:layout_marginEnd="50dp"
+
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/SearchView" />-->
+
+
+        <!--        <RadioGroup-->
+        <!--            android:id="@+id/Search_by_RadioButton"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="50dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="50dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:text="Search by:"-->
+        <!--            android:textSize="30sp"-->
+        <!--            style="@style/TextAppearance.AppCompat.Display1"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/SearchView"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/byIngredients"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="10dp"-->
+        <!--                android:text="Ingredients" />-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/byName"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="10dp"-->
+        <!--                android:text="Name" />-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/byGlass"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="10dp"-->
+        <!--                android:text="Glass" />-->
+
+        <!--            <RadioButton-->
+        <!--                android:id="@+id/byAlcohol"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="10dp"-->
+        <!--                android:text="Alcohol" />-->
+        <!--        </RadioGroup>-->
+
+
+        <!-- <TextView
+             android:id="@+id/search_byTV"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:hint="Search by:"
+             android:textSize="30sp"
+             app:layout_constraintBottom_toTopOf="@+id/search_nameBT"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.197"
+             android:layout_marginBottom="16dp"
+             android:layout_marginTop="16dp"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
+
+         <Button
+             android:id="@+id/search_nameBT"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="16dp"
+             android:text="Name"
+             app:layout_constraintBottom_toTopOf="@+id/search_alcoholBT"
+             app:layout_constraintEnd_toEndOf="@+id/search_byTV"
+             app:layout_constraintHorizontal_bias="0.0"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/search_byTV"
+             />
+
+         <Button
+             android:id="@+id/search_ingredientsBT"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:text="ingredients"
+             app:layout_constraintBottom_toTopOf="@+id/search_glassBT"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.609"
+
+             app:layout_constraintStart_toEndOf="@+id/search_nameBT"
+             app:layout_constraintTop_toTopOf="@+id/search_nameBT"
+             app:layout_constraintVertical_bias="0.0" />
+
+         <Button
+             android:id="@+id/search_glassBT"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:text="glass"
+             app:layout_constraintEnd_toEndOf="@+id/search_nameBT"
+             app:layout_constraintStart_toStartOf="@+id/search_nameBT"
+             app:layout_constraintTop_toBottomOf="@+id/search_nameBT" />
+
+         <Button
+             android:id="@+id/search_alcoholBT"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:text="alcohol"
+             binding:goneUnless="@{viewmodel.shouldAlcoholCategoryBeSeen}"
+             app:layout_constraintBottom_toBottomOf="@+id/search_glassBT"
+             app:layout_constraintEnd_toEndOf="@+id/search_ingredientsBT"
+             app:layout_constraintStart_toStartOf="@+id/search_ingredientsBT"
+             app:layout_constraintTop_toTopOf="@+id/search_glassBT"
+
+             />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,18 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1785" />
+        <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1785" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/drawable/ic_launcher_background.xml" value="0.124" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/alcohol_recipe_search_activity.xml" value="0.21052631578947367" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/free_recipe_search_activity.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/home_bar_activity.xml" value="0.12273550724637682" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/recipe_search.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/recipe_search_activity.xml" value="0.1703125" />
+        <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/recipe_search_activity.xml" value="0.264" />
+        <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/recyclerview_item_row.xml" value="0.2" />
         <entry key="..\:/Users/Ja/AndroidStudioProjects/HomeBar/app/src/main/res/layout/welcome_activity.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/Ja/AppData/Local/Android/Sdk/platforms/android-33/data/res/layout/simple_spinner_dropdown_item.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

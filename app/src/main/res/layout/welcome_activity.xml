@@ -9,18 +9,18 @@
 
     <Button
         android:id="@+id/drinkWithAlcoholBT"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="351dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+
         android:gravity="center"
-        android:text="DRINK Z %"
+        android:text="Find a recipe"
         app:layout_constraintBottom_toTopOf="@+id/favouriteBT"
-        app:layout_constraintEnd_toStartOf="@+id/drinkFreeBT"
-        app:layout_constraintStart_toEndOf="@+id/drinkFreeBT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_goneMarginStart="30dp" />
 
     <Button
@@ -33,6 +33,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="FREE ALCOHOL"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/favouriteBT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/drinkWithAlcoholBT"
@@ -40,13 +41,12 @@
 
     <Button
         android:id="@+id/favouriteBT"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
-        android:text="ULUBIONE"
+
+        android:text="Favorite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,11 +55,12 @@
 
     <Button
         android:id="@+id/addYourDrinkBT"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="352dp"
+        android:layout_height="69dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
-        android:text="Dodaj swój przepis"
+
+        android:text="Add your recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 

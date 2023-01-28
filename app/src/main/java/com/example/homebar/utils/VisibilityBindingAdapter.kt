@@ -1,4 +1,4 @@
-package com.example.homebar.view.ui
+package com.example.homebar.utils
 
 import android.view.View
 import androidx.databinding.BindingAdapter

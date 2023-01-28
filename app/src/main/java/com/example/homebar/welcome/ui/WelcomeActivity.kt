@@ -8,7 +8,7 @@ import com.example.homebar.model.PresenceOfAlcoholCategory.FREE_OF_ALCOHOL
 import com.example.homebar.model.PresenceOfAlcoholCategory.WITH_ALCOHOL
 import com.example.homebar.navigation.HomeBarNavigationManager.navigateToRecipeSearch
 import com.example.homebar.recipesearch.model.RecipeSearchExtraData
-import com.example.homebar.view.viewModel.WelcomeViewModel
+import com.example.homebar.welcome.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
