@@ -1,17 +1,23 @@
 package com.example.homebar.recipesearch.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.homebar.databinding.RecipeSearchActivityBinding
+import com.example.homebar.model.ExtraDataConst
+import com.example.homebar.recipedetails.ui.RecipeDetailsActivity
 import com.example.homebar.recipesearch.RecipeSearchViewModel
 import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
+import com.example.homebar.recipesearch.service.RecipeSearchRepository
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +28,7 @@ class RecipeSearchActivity : AppCompatActivity() {
 
     // 1 czesc potrzebna do dzialania RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var drinksList: List<Drinks>            // CZY NAPEWNO CHODZI O TA KLASE?
 
@@ -33,15 +40,25 @@ class RecipeSearchActivity : AppCompatActivity() {
 
 
 
-        drinksList = emptyList()
+        //  drinksList = emptyList() zmiana na to nizej
+        drinksList = ArrayList()
 
         // 2 czesc potrzebna do działania RecyclerView
         linearLayoutManager = LinearLayoutManager(this)
-        binding.rvList.layoutManager = linearLayoutManager
+        recyclerView = binding.rvList
+      //  recyclerView.hasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
 
         recyclerAdapter = RecyclerAdapter(drinksList)               // CZY NAPEWNO DOBRA KLASA?
+        recyclerView.adapter = recyclerAdapter
 
-        binding.rvList.adapter = recyclerAdapter
+        recyclerAdapter.onItemClick ={
+            val intent = Intent(this,  RecipeDetailsActivity::class.java)
+           // intent.putExtra()
+            startActivity(intent)
+        }
 
 
         val arrayAdapterSearch = ArrayAdapter(
@@ -111,14 +128,23 @@ class RecipeSearchActivity : AppCompatActivity() {
         /*val glassResultObserver = Observer<Recipe> { it ->
             it.drinks?.let { recyclerAdapter.updateNewData(it) }        // czy tu mam uzyc fcji updatenewdata?
         }*/
-        val glassResultObserver = Observer<Recipe>{it ->
-            it.drinks?.let{ recyclerAdapter.updateNewData(it)}
-           /* binding.typeOfGlassSpinner.setSelection(it)*/
+        val glassResultObserver = Observer<Recipe> { it ->
+            it.drinks?.let { recyclerAdapter.updateNewData(it) }
+            /* binding.typeOfGlassSpinner.setSelection(it)*/
         }
         viewModel.spinnerGlassResponseLD.observe(this, glassResultObserver)
 
         binding.glassSearchButton.setOnClickListener {
             viewModel.searchForChooseTheTypeOfGlass()
         }
+
+
+
+
     }
+/*   private fun onListItemClick(position: Int) {                                               // NOWE DO CLICKITEM
+        val intent = Intent(this, RecipeDetailsActivity::class.java)
+        startActivity(intent)
+    }*/
+
 }

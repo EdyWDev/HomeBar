@@ -1,29 +1,40 @@
 package com.example.homebar.recipesearch.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.homebar.databinding.RecyclerviewItemRowBinding
 import com.example.homebar.recipesearch.model.Drinks
+import com.example.homebar.recipesearch.model.Recipe
+import com.example.homebar.recipesearch.service.RecipeSearchRepository
 
 class RecyclerAdapter(
-    var drinksList: List<Drinks>,                  // CZY TO NAPEWNO TA KLASA???
+    var drinksList: List<Drinks>, // CZY TO NAPEWNO TA KLASA???
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    inner class ViewHolder(/*itemView: View,*/ val binding: RecyclerviewItemRowBinding) :
+
+    var onItemClick: ((Drinks) -> Unit)? = null
+
+    inner class ViewHolder(val binding: RecyclerviewItemRowBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
+        val view =
             RecyclerviewItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(binding)
+        return ViewHolder(view)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        /*       holder.bind(holder.itemView)*/
+
+        val drinkListPosition = drinksList[position]
         with(holder) {
             with(drinksList[position]) {
                 binding.drinkName.text = this.strDrink
@@ -38,9 +49,14 @@ class RecyclerAdapter(
                     .load(strDrinkThumb)
                     .into(binding.drinkImage)
 
+                holder.itemView.setOnClickListener{
+                onItemClick?.invoke(drinkListPosition)
+                }
             }
+
         }
     }
+
 
     override fun getItemCount(): Int {
         return drinksList.size
@@ -69,11 +85,16 @@ class RecyclerAdapter(
         }
     }
 
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bindItems(context: Context, model: Recipe) {
 
-}
+        }
+    }
 
-fun String?.getFormattedTextOrEmpty(): String {
-    return this?.let { "$it, " } ?: ""
+
+    fun String?.getFormattedTextOrEmpty(): String {
+        return this?.let { "$it, " } ?: ""
+    }
 }
 
 // TRZEBA USUNAC OSTATNI ELEMNT W STRINGU
