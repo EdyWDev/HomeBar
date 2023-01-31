@@ -18,14 +18,4 @@ class RecipeDetailsActivity: AppCompatActivity() {
 
 
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(binding.shareBT, menu)                       // czym jest menu?
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return super.onOptionsItemSelected(item)
-    }*/
 }

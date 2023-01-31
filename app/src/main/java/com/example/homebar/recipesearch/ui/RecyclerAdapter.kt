@@ -22,7 +22,7 @@ class RecyclerAdapter(
     inner class ViewHolder(val binding: RecyclerviewItemRowBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-
+                                    // dzieki temu ponizej dziala recyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             RecyclerviewItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -34,14 +34,14 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         /*       holder.bind(holder.itemView)*/
 
-        val drinkListPosition = drinksList[position]
+        val drinkListPosition = drinksList[position]                 // wybrana pozycja
         with(holder) {
             with(drinksList[position]) {
                 binding.drinkName.text = this.strDrink
                 binding.drinkRecipe.text = /*"""${this.strInstructions}
                     |
                     |*/"""Ingredients: 
-                    |${getIngredientsText(this)}""".trimMargin()
+                    |${getIngredientsText(this).substring(0, getIngredientsText(this).length -1)}""".trimMargin()
 
                 //  binding.drinkIngredients.text = getIngredientsText(this)
 
@@ -49,7 +49,7 @@ class RecyclerAdapter(
                     .load(strDrinkThumb)
                     .into(binding.drinkImage)
 
-                holder.itemView.setOnClickListener{
+                holder.itemView.setOnClickListener{      // holder który łapie item zeby byl klikalny
                 onItemClick?.invoke(drinkListPosition)
                 }
             }
@@ -92,7 +92,7 @@ class RecyclerAdapter(
     }
 
 
-    fun String?.getFormattedTextOrEmpty(): String {
+    private fun String?.getFormattedTextOrEmpty(): String {
         return this?.let { "$it, " } ?: ""
     }
 }

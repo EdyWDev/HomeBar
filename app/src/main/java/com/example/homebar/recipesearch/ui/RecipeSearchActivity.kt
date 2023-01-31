@@ -54,9 +54,9 @@ class RecipeSearchActivity : AppCompatActivity() {
         recyclerAdapter = RecyclerAdapter(drinksList)               // CZY NAPEWNO DOBRA KLASA?
         recyclerView.adapter = recyclerAdapter
 
+                                // onItemClick dzieki temu item w recyclerview jest klikalny i przenosi do nowego activity
         recyclerAdapter.onItemClick ={
             val intent = Intent(this,  RecipeDetailsActivity::class.java)
-           // intent.putExtra()
             startActivity(intent)
         }
 
@@ -137,14 +137,5 @@ class RecipeSearchActivity : AppCompatActivity() {
         binding.glassSearchButton.setOnClickListener {
             viewModel.searchForChooseTheTypeOfGlass()
         }
-
-
-
-
     }
-/*   private fun onListItemClick(position: Int) {                                               // NOWE DO CLICKITEM
-        val intent = Intent(this, RecipeDetailsActivity::class.java)
-        startActivity(intent)
-    }*/
-
 }
