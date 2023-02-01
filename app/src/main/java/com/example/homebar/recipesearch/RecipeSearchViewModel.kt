@@ -21,11 +21,7 @@ class RecipeSearchViewModel @Inject constructor(
     private val extraData: RecipeSearchExtraData =
         requireNotNull(savedStateHandle[ExtraDataConst.EXTRA_DATA_RECIPE_SEARCH])
 
-    private val _typeOfSearch = mutableListOf("Name", "Ingredients", "Glass")/*.also {
-        if (extraData.alcoholPresence == WITH_ALCOHOL) {
-            it.add("Alcohol")
-        }
-    }*/
+    private val _typeOfSearch = mutableListOf("Name", "Ingredients", "Glass")
 
     val typeOfSearch = _typeOfSearch.toList()
 
@@ -52,9 +48,6 @@ class RecipeSearchViewModel @Inject constructor(
                         recipeSearchRepository.getRecipeByCocktailName(searchViewMessage.value.toString())
                     "Ingredients" -> _response.value =
                         recipeSearchRepository.getRecipeByIngredients(searchViewMessage.value.toString())
-                    /*  "Glass" ->
-                          _response.value =
-                              recipeSearchRepository.getRecipeByGlass(searchViewMessage.value.toString())*/
                     "Alcohol" -> _response.value =
                         recipeSearchRepository.getRecipeByAlcohol(searchViewMessage.value.toString())
                 }
@@ -79,7 +72,7 @@ class RecipeSearchViewModel @Inject constructor(
             try {
                 _spinnerGlassResponse.value =
                     recipeSearchRepository.getRecipeByGlass(isTheSelectedTypeOfGlass().toString())
-                //     recipeSearchRepository.getRecipeByID()                                      // CZY TU WYSTARCZY UZYWYC FUNKCJI GET RECIPE BY ID?
+               //     recipeSearchRepository.getRecipeByID()                                      // CZY TU WYSTARCZY UZYWYC FUNKCJI GET RECIPE BY ID?
 
             } catch (e: Exception) {
                 // Retrofit error

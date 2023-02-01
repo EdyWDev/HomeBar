@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     android:elevation="5dp"
     app:layout_constraintTop_toTopOf="parent">
@@ -22,9 +23,11 @@
         android:id="@+id/drink_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:textSize="20sp"
+        tools:text="EXAMPLE NAME"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/drink_recipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/drink_image"
@@ -35,16 +38,34 @@
         android:layout_width="112dp"
         android:layout_height="112dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        tools:src="@drawable/ic_launcher_background" />
+
+
 
     <TextView
         android:id="@+id/drink_recipe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Ingredients:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/drink_image"
         app:layout_constraintTop_toBottomOf="@+id/drink_name" />
+    <TextView
+        android:id="@+id/drink_ingredients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="EXAMPLE TEXT"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drink_image"
+        app:layout_constraintTop_toBottomOf="@+id/drink_recipe" />
 
 
     <!--<TextView
@@ -60,3 +81,91 @@
         app:layout_constraintTop_toBottomOf="@+id/drink_recipe" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
+
+
+<!--
+
+    <?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/card_item_recipe"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:layout_constraintStart_toStartOf="parent"
+xmlns:tools="http://schemas.android.com/tools"
+
+android:layout_margin="8dp"
+android:elevation="5dp"
+app:layout_constraintTop_toTopOf="parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_marginBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <TextView
+        android:id="@+id/drink_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="20sp"
+        tools:text="EXAMPLE NAME"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/drink_recipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drink_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/drink_image"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drink_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
+
+
+
+    <TextView
+        android:id="@+id/drink_recipe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Ingredients:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drink_image"
+        app:layout_constraintTop_toBottomOf="@+id/drink_name" />
+    <TextView
+        android:id="@+id/drink_ingredients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="EXAMPLE TEXT"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:maxLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drink_image"
+        app:layout_constraintTop_toBottomOf="@+id/drink_recipe" />
+
+
+    &lt;!&ndash;<TextView
+        android:id="@+id/drink_ingredients"
+        android:layout_width="227dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/drink_image"
+        app:layout_constraintTop_toBottomOf="@+id/drink_recipe" />&ndash;&gt;
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>-->

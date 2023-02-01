@@ -32,12 +32,12 @@ class WelcomeActivity : AppCompatActivity() {
             )
         }
 
-        binding.drinkFreeBT.setOnClickListener {
+        /*binding.drinkFreeBT.setOnClickListener {
             navigateToRecipeSearch(
                 extraData = RecipeSearchExtraData(
                     FREE_OF_ALCOHOL
                 )
             )
-        }
+        }*/
     }
 }

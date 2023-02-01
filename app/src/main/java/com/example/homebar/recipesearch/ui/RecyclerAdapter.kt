@@ -38,15 +38,14 @@ class RecyclerAdapter(
         with(holder) {
             with(drinksList[position]) {
                 binding.drinkName.text = this.strDrink
-                binding.drinkRecipe.text = /*"""${this.strInstructions}
-                    |
-                    |*/"""Ingredients: 
-                    |${getIngredientsText(this).substring(0, getIngredientsText(this).length -1)}""".trimMargin()
+                val drinkIngredientsText =  getIngredientsText(this)
+                binding.drinkIngredients.text = drinkIngredientsText/*.substring(0, drinkIngredientsText.length-1)*/
+                   /*.substring(0, getIngredientsText(this).length)*/
 
-                //  binding.drinkIngredients.text = getIngredientsText(this)
+                  // binding.drinkIngredients.text = getIngredientsText(this)
 
                 Glide.with(holder.binding.root.context)
-                    .load(strDrinkThumb)
+                    .load(strDrinkThumb)                               // poczytac o cache Glide
                     .into(binding.drinkImage)
 
                 holder.itemView.setOnClickListener{      // holder który łapie item zeby byl klikalny
@@ -79,24 +78,12 @@ class RecyclerAdapter(
         }
     }
 
-    private fun getDrinksId(data: Drinks): Int? {          // zwróci ID drinka
-        with(data) {
-            return idDrink
-        }
-    }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(context: Context, model: Recipe) {
-
-        }
     }
 
 
     private fun String?.getFormattedTextOrEmpty(): String {
         return this?.let { "$it, " } ?: ""
     }
-}
-
-// TRZEBA USUNAC OSTATNI ELEMNT W STRINGU
 
 

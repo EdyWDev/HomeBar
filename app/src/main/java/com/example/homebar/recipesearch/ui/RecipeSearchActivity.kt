@@ -1,23 +1,20 @@
 package com.example.homebar.recipesearch.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homebar.databinding.RecipeSearchActivityBinding
-import com.example.homebar.model.ExtraDataConst
-import com.example.homebar.recipedetails.ui.RecipeDetailsActivity
+import com.example.homebar.navigation.HomeBarNavigationManager.navigateToRecipeDetails
+import com.example.homebar.recipedetails.model.DetailsExtraData
 import com.example.homebar.recipesearch.RecipeSearchViewModel
 import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
-import com.example.homebar.recipesearch.service.RecipeSearchRepository
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,14 +36,13 @@ class RecipeSearchActivity : AppCompatActivity() {
         binding.viewmodel = viewModel
 
 
-
         //  drinksList = emptyList() zmiana na to nizej
         drinksList = ArrayList()
 
         // 2 czesc potrzebna do działania RecyclerView
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView = binding.rvList
-      //  recyclerView.hasFixedSize(true)
+        //  recyclerView.hasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
@@ -54,10 +50,9 @@ class RecipeSearchActivity : AppCompatActivity() {
         recyclerAdapter = RecyclerAdapter(drinksList)               // CZY NAPEWNO DOBRA KLASA?
         recyclerView.adapter = recyclerAdapter
 
-                                // onItemClick dzieki temu item w recyclerview jest klikalny i przenosi do nowego activity
-        recyclerAdapter.onItemClick ={
-            val intent = Intent(this,  RecipeDetailsActivity::class.java)
-            startActivity(intent)
+        // onItemClick dzieki temu item w recyclerview jest klikalny i przenosi do nowego activity
+        recyclerAdapter.onItemClick = {
+            navigateToRecipeDetails(DetailsExtraData(it.idDrink?: 0))
         }
 
 
@@ -125,12 +120,8 @@ class RecipeSearchActivity : AppCompatActivity() {
         }
         viewModel.responseLD.observe(this, resultObserver)
 
-        /*val glassResultObserver = Observer<Recipe> { it ->
-            it.drinks?.let { recyclerAdapter.updateNewData(it) }        // czy tu mam uzyc fcji updatenewdata?
-        }*/
         val glassResultObserver = Observer<Recipe> { it ->
             it.drinks?.let { recyclerAdapter.updateNewData(it) }
-            /* binding.typeOfGlassSpinner.setSelection(it)*/
         }
         viewModel.spinnerGlassResponseLD.observe(this, glassResultObserver)
 

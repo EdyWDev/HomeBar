@@ -2,40 +2,42 @@ package com.example.homebar.recipesearch.service
 
 import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
+import com.example.homebar.recipesearch.service.model.DrinksDTO
 import com.example.homebar.recipesearch.service.model.RecipeDTO
 
 class RecipeSearchRepository(
-    private val homeBarService: RecipeService
+    private val
+    homeBarService: RecipeService
 ) {
     suspend fun getRecipeByCocktailName(cocktailName: String): Recipe {
         val url = "$COCKTAIL_BY_NAME$cocktailName"
-        return homeBarService.getRecipe(url).toDomainModel()
+        return homeBarService.getRecipe(url).toDomainRecipeModel()
     }
 
     suspend fun getRecipeByIngredients(ingredients: String): Recipe {
         val url = "$COCKTAIL_BY_INGREDIENT$ingredients"
-        return homeBarService.getRecipe(url).toDomainModel()
+        return homeBarService.getRecipe(url).toDomainRecipeModel()
     }
 
     suspend fun getRecipeByGlass(glass: String): Recipe {
         val url = "$COCKTAIL_BY_GLASS$glass"
-        return homeBarService.getRecipe(url).toDomainModel()
+        return homeBarService.getRecipe(url).toDomainRecipeModel()
     }
 
     suspend fun getRecipeByAlcohol(alcohol: String): Recipe {
         val url = "$COCKTAIL_BY_ALCOHOL$alcohol"
-        return homeBarService.getRecipe(url).toDomainModel()
+        return homeBarService.getRecipe(url).toDomainRecipeModel()
     }
 
 
-     suspend fun getRecipeByID(id: String): Recipe {
+    suspend fun getRecipeByID(id: String): Drinks? {
         val url = "$COCKTAIL_BY_ID$id"
-        return homeBarService.getRecipe(url).toDomainModel()
-}
+        return homeBarService.getRecipeById(url).toDomainRecipeModel().drinks?.get(0)
+    }
 }
 
 
-fun RecipeDTO?.toDomainModel(): Recipe {
+fun RecipeDTO?.toDomainRecipeModel(): Recipe {
     return Recipe(drinks = this?.drinks?.map {
         Drinks(
             idDrink = it.idDrink,
@@ -89,6 +91,60 @@ fun RecipeDTO?.toDomainModel(): Recipe {
             dateModified = it.dateModified
         )
     })
+}
+
+fun DrinksDTO.toDomainDrinksModel(): Drinks {
+    return Drinks(
+        idDrink = this.idDrink,
+        strDrink = this.strDrink,
+        strDrinkAlternate = this.strDrinkAlternate,
+        strTags = this.strTags,
+        strVideo = this.strVideo,
+        strCategory = this.strCategory,
+        strIBA = this.strIBA,
+        strAlcoholic = this.strAlcoholic,
+        strGlass = this.strGlass,
+        strInstructions = this.strInstructions,
+        strInstructionsES = this.strInstructionsES,
+        strInstructionsFR = this.strInstructionsFR,
+        strInstructionsIT = this.strInstructionsIT,
+        strDrinkThumb = this.strDrinkThumb,
+        strIngredient1 = this.strIngredient1,
+        strIngredient2 = this.strIngredient2,
+        strIngredient3 = this.strIngredient3,
+        strIngredient4 = this.strIngredient4,
+        strIngredient5 = this.strIngredient5,
+        strIngredient6 = this.strIngredient6,
+        strIngredient7 = this.strIngredient7,
+        strIngredient8 = this.strIngredient8,
+        strIngredient9 = this.strIngredient9,
+        strIngredient10 = this.strIngredient10,
+        strIngredient11 = this.strIngredient11,
+        strIngredient12 = this.strIngredient12,
+        strIngredient13 = this.strIngredient13,
+        strIngredient14 = this.strIngredient14,
+        strIngredient15 = this.strIngredient15,
+        strMeasure1 = this.strMeasure1,
+        strMeasure2 = this.strMeasure2,
+        strMeasure3 = this.strMeasure3,
+        strMeasure4 = this.strMeasure4,
+        strMeasure5 = this.strMeasure5,
+        strMeasure6 = this.strMeasure6,
+        strMeasure7 = this.strMeasure7,
+        strMeasure8 = this.strMeasure8,
+        strMeasure9 = this.strMeasure9,
+        strMeasure10 = this.strMeasure10,
+        strMeasure11 = this.strMeasure11,
+        strMeasure12 = this.strMeasure12,
+        strMeasure13 = this.strMeasure13,
+        strMeasure14 = this.strMeasure14,
+        strMeasure15 = this.strMeasure15,
+        strImageSource = this.strImageSource,
+        strImageAttribution = this.strImageAttribution,
+        strCreativeCommonsConfirmed = this.strCreativeCommonsConfirmed,
+        dateModified = this.dateModified,
+        strInstructionsDE = null
+    )
 }
 
 
