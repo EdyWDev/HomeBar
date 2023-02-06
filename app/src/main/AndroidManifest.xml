@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeBar"
         tools:targetApi="31">
-        <activity android:name=".recipesearch.ui.RecipeSearchActivity"
+        <activity
+            android:name=".recipesearch.ui.RecipeSearchActivity"
             android:exported="false"/>
         <activity
            android:name=".welcome.ui.WelcomeActivity"
@@ -29,7 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recipedetails.ui.RecipeDetailsActivity" />
+        <activity
+            android:name=".recipedetails.ui.RecipeDetailsActivity" />
     </application>
 
 </manifest>
+
+
+
+ <!--   android:theme="@style/Theme.AppCompat.DayNight" -->

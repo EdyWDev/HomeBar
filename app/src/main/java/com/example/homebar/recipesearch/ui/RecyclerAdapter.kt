@@ -1,45 +1,44 @@
 package com.example.homebar.recipesearch.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.homebar.R
 import com.example.homebar.databinding.RecyclerviewItemRowBinding
 import com.example.homebar.recipesearch.model.Drinks
-import com.example.homebar.recipesearch.model.Recipe
-import com.example.homebar.recipesearch.service.RecipeSearchRepository
 
 class RecyclerAdapter(
+   // private val onItemClick: (Drinks) -> Unit,
     var drinksList: List<Drinks>, // CZY TO NAPEWNO TA KLASA???
+    private val onItemClick: (Drinks) -> Unit,
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-
-    var onItemClick: ((Drinks) -> Unit)? = null
 
     inner class ViewHolder(val binding: RecyclerviewItemRowBinding) :
         RecyclerView.ViewHolder(binding.root)
 
                                     // dzieki temu ponizej dziala recyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            RecyclerviewItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = RecyclerviewItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(view)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        /*       holder.bind(holder.itemView)*/
 
-        val drinkListPosition = drinksList[position]                 // wybrana pozycja
+        val drinkListPosition = drinksList[position]
+      /*  holder.binding.drinkName.text = drinkListPosition.strDrink*/
+
+                        // wybrana pozycja
         with(holder) {
+
             with(drinksList[position]) {
                 binding.drinkName.text = this.strDrink
-                val drinkIngredientsText =  getIngredientsText(this)
-                binding.drinkIngredients.text = drinkIngredientsText/*.substring(0, drinkIngredientsText.length-1)*/
+                // val drinkIngredientsText =  getIngredientsText(this)
+              //   binding.drinkName.text = drinkIngredientsText/*.substring(0, drinkIngredientsText.length-1)*/
                    /*.substring(0, getIngredientsText(this).length)*/
 
                   // binding.drinkIngredients.text = getIngredientsText(this)
@@ -49,7 +48,7 @@ class RecyclerAdapter(
                     .into(binding.drinkImage)
 
                 holder.itemView.setOnClickListener{      // holder który łapie item zeby byl klikalny
-                onItemClick?.invoke(drinkListPosition)
+                    onItemClick.invoke(drinkListPosition)
                 }
             }
 

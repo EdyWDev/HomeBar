@@ -6,50 +6,106 @@
     android:layout_height="match_parent"
     tools:context=".welcome.ui.WelcomeActivity">
 
-
-    <ImageView
-        android:id="@+id/detailed_drink_image"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        tools:src="@drawable/ic_launcher_background"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:scaleType="fitXY"
-       app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:textAlignment="center"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toStartOf="@id/detailed_DrinkNameTV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/shareBT"
-        />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:subtitleTextColor="@color/black" />
 
     <TextView
         android:id="@+id/detailed_DrinkNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        tools:text="EXAMPLE NAME"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toTopOf="@+id/detailed_drink_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="EXAMPLE NAME" />
+
+    <ImageView
+        android:id="@+id/detailed_drink_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/shareBT"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favouriteBT" />
+        app:layout_constraintTop_toBottomOf="@+id/detailed_DrinkNameTV"
+        tools:src="@drawable/ic_launcher_background" />
+
 
     <TextView
-        android:id="@+id/detailed_drink_recipe_and_ingredients"
+        android:id="@+id/title_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="EXAMPLE TEXT"
         android:layout_margin="16dp"
-        android:textSize="16sp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="INGREDIENTS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintEnd_toStartOf="@id/favouriteBT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailed_drink_image" />
+
+    <TextView
+
+        android:id="@+id/detailed_drink_ingredients_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailed_DrinkNameTV" />
+        app:layout_constraintTop_toBottomOf="@+id/title_ingredients"
+        tools:text="EXAMPLE TEXT" />
 
+
+    <TextView
+        android:id="@+id/title_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:text="INSTRUCTIONS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailed_drink_ingredients_ListView" />
+
+    <TextView
+        android:id="@+id/detailed_drink_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_instructions"
+        tools:text="EXAMPLE TEXT" />
     <!-- <TextView
         android:id="@+id/drink_ingredients"
         android:layout_width="384dp"
@@ -62,28 +118,29 @@
         app:layout_constraintTop_toBottomOf="@+id/drink_recipe" />-->
 
 
-
     <ImageButton
         android:id="@+id/shareBT"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/baseline_share_24"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/favouriteBT"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/baseline_favorite_24"
-        app:layout_constraintEnd_toStartOf="@+id/shareBT"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-      />
+        app:layout_constraintEnd_toStartOf="@+id/shareBT"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

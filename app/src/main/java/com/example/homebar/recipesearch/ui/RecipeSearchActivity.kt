@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homebar.databinding.RecipeSearchActivityBinding
@@ -23,37 +24,40 @@ class RecipeSearchActivity : AppCompatActivity() {
     private lateinit var binding: RecipeSearchActivityBinding
     private val viewModel: RecipeSearchViewModel by viewModels()
 
+
     // 1 czesc potrzebna do dzialania RecyclerView
-    private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var drinksList: List<Drinks>            // CZY NAPEWNO CHODZI O TA KLASE?
 
+ //  private lateinit var gridView: GridView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = RecipeSearchActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.viewmodel = viewModel
 
+       //  gridView = binding.gridView
 
         //  drinksList = emptyList() zmiana na to nizej
         drinksList = ArrayList()
 
+
         // 2 czesc potrzebna do działania RecyclerView
-        linearLayoutManager = LinearLayoutManager(this)
-        recyclerView = binding.rvList
-        //  recyclerView.hasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+      //  linearLayoutManager = LinearLayoutManager(this)
+     recyclerView = binding.rvList
+     val numberOfColumns = 2
+     recyclerView.layoutManager = GridLayoutManager(this, numberOfColumns)
+
+        recyclerAdapter = RecyclerAdapter(
+            drinksList = drinksList,
+        ) {
+            navigateToRecipeDetails(DetailsExtraData(it.idDrink ?: 0)) // onItemClick
+        }                                // onItemClick dzieki temu item w recyclerview jest klikalny i przenosi do nowego activity
+     recyclerView.adapter = recyclerAdapter
 
 
-
-        recyclerAdapter = RecyclerAdapter(drinksList)               // CZY NAPEWNO DOBRA KLASA?
-        recyclerView.adapter = recyclerAdapter
-
-        // onItemClick dzieki temu item w recyclerview jest klikalny i przenosi do nowego activity
-        recyclerAdapter.onItemClick = {
-            navigateToRecipeDetails(DetailsExtraData(it.idDrink?: 0))
-        }
+       // gridView.adapter =
 
 
         val arrayAdapterSearch = ArrayAdapter(
@@ -128,5 +132,6 @@ class RecipeSearchActivity : AppCompatActivity() {
         binding.glassSearchButton.setOnClickListener {
             viewModel.searchForChooseTheTypeOfGlass()
         }
+
     }
 }

@@ -6,7 +6,7 @@ import com.example.homebar.model.ExtraDataConst
 import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.model.RecipeSearchConsts
 import com.example.homebar.recipesearch.model.RecipeSearchExtraData
-import com.example.homebar.recipesearch.service.RecipeSearchRepository
+import com.example.homebar.recipesearch.service.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val recipeSearchRepository: RecipeSearchRepository
+    private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 
     private val extraData: RecipeSearchExtraData =
@@ -45,11 +45,11 @@ class RecipeSearchViewModel @Inject constructor(
             try {
                 when (isTypeOfSearchSelected()) {
                     "Name" -> _response.value =
-                        recipeSearchRepository.getRecipeByCocktailName(searchViewMessage.value.toString())
+                        recipeRepository.getRecipeByCocktailName(searchViewMessage.value.toString())
                     "Ingredients" -> _response.value =
-                        recipeSearchRepository.getRecipeByIngredients(searchViewMessage.value.toString())
+                        recipeRepository.getRecipeByIngredients(searchViewMessage.value.toString())
                     "Alcohol" -> _response.value =
-                        recipeSearchRepository.getRecipeByAlcohol(searchViewMessage.value.toString())
+                        recipeRepository.getRecipeByAlcohol(searchViewMessage.value.toString())
                 }
             } catch (e: Exception) {
                 // Retrofit error
@@ -71,8 +71,7 @@ class RecipeSearchViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _spinnerGlassResponse.value =
-                    recipeSearchRepository.getRecipeByGlass(isTheSelectedTypeOfGlass().toString())
-               //     recipeSearchRepository.getRecipeByID()                                      // CZY TU WYSTARCZY UZYWYC FUNKCJI GET RECIPE BY ID?
+                    recipeRepository.getRecipeByGlass(isTheSelectedTypeOfGlass().toString())
 
             } catch (e: Exception) {
                 // Retrofit error

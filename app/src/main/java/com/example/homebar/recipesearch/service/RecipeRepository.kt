@@ -5,7 +5,7 @@ import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.service.model.DrinksDTO
 import com.example.homebar.recipesearch.service.model.RecipeDTO
 
-class RecipeSearchRepository(
+class RecipeRepository(
     private val
     homeBarService: RecipeService
 ) {
