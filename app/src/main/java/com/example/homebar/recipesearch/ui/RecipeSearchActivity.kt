@@ -36,8 +36,10 @@ class RecipeSearchActivity : AppCompatActivity() {
         binding = RecipeSearchActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.viewmodel = viewModel
+     supportActionBar?.setDisplayHomeAsUpEnabled(true)     // dzieki temu mozesz wracac do wczesniejszego activity + trzeba dodac parentActivity do manifest
 
-       //  gridView = binding.gridView
+
+     //  gridView = binding.gridView
 
         //  drinksList = emptyList() zmiana na to nizej
         drinksList = ArrayList()

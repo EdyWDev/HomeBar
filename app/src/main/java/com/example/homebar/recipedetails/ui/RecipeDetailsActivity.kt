@@ -1,6 +1,7 @@
 package com.example.homebar.recipedetails.ui
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.ListView
@@ -28,24 +29,8 @@ class RecipeDetailsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = RecipeDetailsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)     // dzieki temu mozesz wracac do wczesniejszego activity + trzeba dodac parentActivity do manifest
 
-      supportActionBar?.apply {
-          //  title = "Toolbar Back Button Example"
-           // show back button on toolbar
-            // on back button press, it will navigate to parent activity
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-// Get a support ActionBar corresponding to this toolbar and enable the Up button
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-        // access the listView from xml file
-
-
-        val listIngredientObserver = Observer<List<UnitAndIngredients>> { list ->
-            binding.listView.updateList(list)
-        }
 
 
         val imageObserver = Observer<String> { value ->
@@ -72,7 +57,12 @@ class RecipeDetailsActivity: AppCompatActivity() {
         }
         viewModel.detailedInstructionDrinkLD.observe(this, detailedDrinkIngredientsObserver)
 
+        val listIngredientObserver = Observer<List<UnitAndIngredients>> { list ->
+            binding.listView.updateList(list)
+        }
         viewModel.ingredientList.observe(this, listIngredientObserver)
 
     }
 }
+// database action object
+//room
