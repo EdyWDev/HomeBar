@@ -1,15 +1,18 @@
 package com.example.homebar.recipedetails.ui
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.ListView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.example.homebar.R
 import com.example.homebar.databinding.RecipeDetailsActivityBinding
 import com.example.homebar.recipedetails.RecipeDetailsViewModel
-import com.example.homebar.recipesearch.model.Drinks
+import com.example.homebar.recipesearch.ui.UnitAndIngredients
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,21 +20,14 @@ class RecipeDetailsActivity: AppCompatActivity() {
 
     private val viewModel: RecipeDetailsViewModel by viewModels()
     private lateinit var binding: RecipeDetailsActivityBinding
-    // private lateinit var listView: ListView
- ////   var arrayList: ArrayList<Drinks> = ArrayList()
-  //  var adapterList: ListAdapter? = null
+     private lateinit var listView: ListView
+    private lateinit var arrayList: ArrayList<UnitAndIngredients>
+    var adapterList: ListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = RecipeDetailsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
- //       listView = binding.detailedDrinkIngredientsListView
- //       arrayList.add(Drinks())
-
-     //   val ingredientsList =
-
-       // setSupportActionBar(binding.toolbar)
 
       supportActionBar?.apply {
           //  title = "Toolbar Back Button Example"
@@ -42,6 +38,15 @@ class RecipeDetailsActivity: AppCompatActivity() {
         }
 // Get a support ActionBar corresponding to this toolbar and enable the Up button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        // access the listView from xml file
+
+
+        val listIngredientObserver = Observer<List<UnitAndIngredients>> { list ->
+            binding.listView.updateList(list)
+        }
+
 
         val imageObserver = Observer<String> { value ->
             Glide.with(binding.root.context)
@@ -63,9 +68,11 @@ class RecipeDetailsActivity: AppCompatActivity() {
         viewModel.detailedRecipeDrink.observe(this, detailedDrinkRecipeObserver)
 
         val detailedDrinkIngredientsObserver = Observer<String> { value ->
-            binding.detailedDrinkIngredientsListView.text = value
+            binding.listView[value.toInt()]
         }
         viewModel.detailedInstructionDrinkLD.observe(this, detailedDrinkIngredientsObserver)
+
+        viewModel.ingredientList.observe(this, listIngredientObserver)
 
     }
 }

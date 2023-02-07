@@ -65,15 +65,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailed_drink_image" />
 
-    <TextView
-
-        android:id="@+id/detailed_drink_ingredients_ListView"
+    <com.example.homebar.components.CustomItemsList
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_ingredients"
@@ -92,7 +89,7 @@
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailed_drink_ingredients_ListView" />
+        app:layout_constraintTop_toBottomOf="@+id/list_view" />
 
     <TextView
         android:id="@+id/detailed_drink_recipe"

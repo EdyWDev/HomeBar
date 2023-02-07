@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.homebar.R
 import com.example.homebar.databinding.RecyclerviewItemRowBinding
+import com.example.homebar.recipedetails.ui.RecipeDetailsActivity
 import com.example.homebar.recipesearch.model.Drinks
 
 class RecyclerAdapter(
