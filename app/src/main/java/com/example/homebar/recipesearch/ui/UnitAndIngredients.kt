@@ -1,3 +1,6 @@
 package com.example.homebar.recipesearch.ui
 
-data class UnitAndIngredients(var unitIngredient: String, var ingredient: String)
+data class UnitAndIngredients(var unitIngredient: String, var ingredient: String) {
+
+    override fun toString() = "$unitIngredient $ingredient"
+}
