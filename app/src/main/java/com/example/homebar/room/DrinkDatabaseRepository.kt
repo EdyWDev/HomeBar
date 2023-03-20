@@ -1,5 +1,6 @@
 package com.example.homebar.room
 
+import com.example.homebar.favouritedrink.model.FavouriteDrinkRecipe
 import javax.inject.Inject
 
 // To repozytorium jest taką warstwa jak repository przy service. Inject'ujesz sobie ją i wsio.
@@ -12,6 +13,6 @@ class DrinkDatabaseRepository @Inject constructor(
     fun updateDrink(note: DrinkEntity) = dao.updateDrink(note)
     fun deleteDrink(note: DrinkEntity) = dao.deleteDrink(note)
     fun getDrink(id : Int) : DrinkEntity = dao.getDrink(id)
-    fun getAllDrink() = dao.getAllDrink()
+    fun getAllDrink() : List<FavouriteDrinkRecipe> = dao.getAllDrink().map { it.mapToFavouriteDrink()  }
 
 }
