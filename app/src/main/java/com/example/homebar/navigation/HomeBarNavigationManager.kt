@@ -2,6 +2,7 @@ package com.example.homebar.navigation
 
 import android.app.Activity
 import android.content.Intent
+import com.example.homebar.favouritedrink.ui.FavouriteDrinkActivity
 import com.example.homebar.model.ExtraDataConst
 import com.example.homebar.recipedetails.model.DetailsExtraData
 import com.example.homebar.recipedetails.model.ExtraDataConstDetails
@@ -25,6 +26,15 @@ object HomeBarNavigationManager {
     ) {
         Intent(this, RecipeDetailsActivity::class.java).apply {
             this.putExtra(ExtraDataConstDetails.EXTRA_DATA_RECIPE_DETAILS, extraData)
+            startActivity(this)
+        }
+    }
+
+    fun Activity.navigateToFavouriteDrink(
+        extraData: DetailsExtraData
+    ) {
+        Intent(this, FavouriteDrinkActivity::class.java).apply {
+          //  this.putExtra(ExtraDataConstDetails.EXTRA_DATA_RECIPE_DETAILS, extraData)
             startActivity(this)
         }
     }
