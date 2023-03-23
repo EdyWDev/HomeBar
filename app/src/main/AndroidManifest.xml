@@ -31,10 +31,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".favouritedrink.ui.FavouriteDrinkActivity"
+            android:parentActivityName=".welcome.ui.WelcomeActivity" >
+        </activity>
         <activity
             android:name=".recipedetails.ui.RecipeDetailsActivity"
             android:parentActivityName=".recipedetails.ui.RecipeDetailsActivity">
     </activity>
+
+
     </application>
 
 </manifest>
