@@ -2,20 +2,17 @@ package com.example.homebar.welcome.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.homebar.R
 import com.example.homebar.databinding.WelcomeActivityBinding
 import com.example.homebar.model.PresenceOfAlcoholCategory.WITH_ALCOHOL
 import com.example.homebar.navigation.HomeBarNavigationManager.navigateToFavouriteDrink
 import com.example.homebar.navigation.HomeBarNavigationManager.navigateToRecipeDetails
 import com.example.homebar.navigation.HomeBarNavigationManager.navigateToRecipeSearch
 import com.example.homebar.recipedetails.model.DetailsExtraData
-import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.RecipeSearchExtraData
 import com.example.homebar.welcome.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +23,6 @@ class WelcomeActivity : AppCompatActivity() {
 
     private val viewModel: WelcomeViewModel by viewModels()
     private lateinit var binding: WelcomeActivityBinding
-    private lateinit var drinksList: List<Drinks>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +45,6 @@ class WelcomeActivity : AppCompatActivity() {
                 extraData = DetailsExtraData
                     (viewModel.idDrinkRandom.value ?: 0)
             )
-       //     val data = viewModel.getDrinkFromDatabase()    //DLACZEGO TO NIE DZIALA I CO TO ZA FCJA?
-            //Toast.makeText(this, data, Toast.LENGTH_LONG).show()
         }
 
         val imageRandomObserver = Observer<String> { value ->
@@ -80,17 +74,17 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onResume() {
         super.onResume()
 
     }
 
-    private fun setVisibilityRandomDrink(){
-        binding.drinkImageRandom.visibility = View.VISIBLE
-        binding.drinkNameRandom.visibility = View.VISIBLE
-        binding.moreInformationBT.visibility = View.VISIBLE
+
+    // Tutaj musisz 3 razy wywolac metode View.Visibile - poczytaj o ConstraintViewGroup i na podstawie tego
+// mozesz to zrobic tutaj lepiej/krócej
+    private fun setVisibilityRandomDrink() {
+        binding.group.visibility = View.VISIBLE
     }
-
-
 }
 
