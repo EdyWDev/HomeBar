@@ -6,22 +6,24 @@ import com.example.homebar.model.ExtraDataConst
 import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.model.RecipeSearchConsts
 import com.example.homebar.recipesearch.model.RecipeSearchExtraData
+import com.example.homebar.recipesearch.model.TypeOfSearchEnum
 import com.example.homebar.recipesearch.service.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.jar.Attributes.Name
 import javax.inject.Inject
 
 
 @HiltViewModel
 class RecipeSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
 ) : ViewModel() {
 
     private val extraData: RecipeSearchExtraData =
         requireNotNull(savedStateHandle[ExtraDataConst.EXTRA_DATA_RECIPE_SEARCH])
 
-    private val _typeOfSearch = mutableListOf("Name", "Ingredients", "Glass")
+    private val _typeOfSearch = mutableListOf(TypeOfSearchEnum.NAME, TypeOfSearchEnum.INGREDIENTS, TypeOfSearchEnum.GLASS/*"Name", "Ingredients", "Glass"*/)
 
     val typeOfSearch = _typeOfSearch.toList()
 
@@ -30,8 +32,8 @@ class RecipeSearchViewModel @Inject constructor(
 
     val indexOfTheSelectedValue = MutableLiveData(0)  // position
 
-    private fun isTypeOfSearchSelected(): String? {
-        return typeOfSearch[indexOfTheSelectedValue.value ?: 0]
+    private fun isTypeOfSearchSelected(): TypeOfSearchEnum {
+        return _typeOfSearch[indexOfTheSelectedValue.value ?: 0]
     }
 
     var searchViewMessage = MutableLiveData<String>()
@@ -44,12 +46,12 @@ class RecipeSearchViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 when (isTypeOfSearchSelected()) {
-                    "Name" -> _response.value =
+                    TypeOfSearchEnum.NAME -> _response.value =
                         recipeRepository.getRecipeByCocktailName(searchViewMessage.value.toString())
-                    "Ingredients" -> _response.value =
+                    TypeOfSearchEnum.INGREDIENTS -> _response.value =
                         recipeRepository.getRecipeByIngredients(searchViewMessage.value.toString())
-                    "Alcohol" -> _response.value =
-                        recipeRepository.getRecipeByAlcohol(searchViewMessage.value.toString())
+                    TypeOfSearchEnum.GLASS -> _response.value =
+                        recipeRepository.getRecipeByGlass(searchViewMessage.value.toString())
                 }
             } catch (e: Exception) {
                 // Retrofit error
