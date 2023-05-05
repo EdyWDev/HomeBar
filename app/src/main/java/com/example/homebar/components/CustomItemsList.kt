@@ -16,7 +16,7 @@ class CustomItemsList @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyle, defStyleRes) {
 
-    private lateinit var listView: LinearLayout
+    private var listView: LinearLayout
 
     init {
         LayoutInflater.from(context)

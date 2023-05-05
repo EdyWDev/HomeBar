@@ -2,6 +2,7 @@ package com.example.homebar.recipesearch
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.homebar.coroutinesScopeUtils.safeLaunch
 import com.example.homebar.model.ExtraDataConst
 import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.model.RecipeSearchConsts
@@ -43,8 +44,8 @@ class RecipeSearchViewModel @Inject constructor(
     val responseLD: LiveData<Recipe> = _response
 
     fun searchForResult() {
-        viewModelScope.launch {
-            try {
+        viewModelScope.safeLaunch(
+            actionToTake = {
                 when (isTypeOfSearchSelected()) {
                     TypeOfSearchEnum.NAME -> _response.value =
                         recipeRepository.getRecipeByCocktailName(searchViewMessage.value.toString())
@@ -53,11 +54,11 @@ class RecipeSearchViewModel @Inject constructor(
                     TypeOfSearchEnum.GLASS -> _response.value =
                         recipeRepository.getRecipeByGlass(searchViewMessage.value.toString())
                 }
-            } catch (e: Exception) {
-                // Retrofit error
-                Log.e("MYAPP", "exception", e)
+            },
+            onException = {error->
+                Log.e("MYAPP", "exception", error)
             }
-        }
+        )
     }
 
     private val _spinnerGlassResponse = MutableLiveData<Recipe>()
@@ -70,16 +71,15 @@ class RecipeSearchViewModel @Inject constructor(
     }
 
     fun searchForChooseTheTypeOfGlass() {
-        viewModelScope.launch {
-            try {
+        viewModelScope.safeLaunch(
+            actionToTake = {
                 _spinnerGlassResponse.value =
                     recipeRepository.getRecipeByGlass(isTheSelectedTypeOfGlass().toString())
-
-            } catch (e: Exception) {
-                // Retrofit error
-                Log.e("MYAPP", "exception", e)
+            },
+            onException = {error->
+                Log.e("MYAPP", "exception", error)
             }
-        }
+        )
     }
 }
 

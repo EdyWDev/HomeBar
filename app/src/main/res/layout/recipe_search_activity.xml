@@ -18,14 +18,14 @@
 
         <TextView
             android:id="@+id/search_byTextView"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
-            android:text="Search by:"
+            android:text="@string/search_by"
             android:textSize="20sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/searchSpinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,30 +46,31 @@
 
         <Spinner
             android:id="@+id/typeOfGlassSpinner"
-        android:visibility="gone"
             android:layout_width="345dp"
             android:layout_height="28dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchSpinner"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="78dp" />
-
+<!--
         <ImageButton
             android:id="@+id/glassSearchButton"
-            android:visibility="gone"
             android:layout_width="42dp"
             android:layout_height="34dp"
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_baseline_search_24"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toEndOf="@+id/typeOfGlassSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/searchSpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/searchSpinner" />-->
 
         <EditText
             android:id="@+id/searchView"
@@ -78,7 +79,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="65dp"
-            android:hint="Enter your search term"
+            android:imeOptions="actionGo"
+            android:hint="@string/enter_your_search_term"
             android:text="@={viewmodel.searchViewMessage}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,14 +98,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_List"
-            android:layout_width="394dp"
-            android:layout_height="620dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView"
             tools:listitem="@layout/recyclerview_item_row" />

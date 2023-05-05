@@ -4,6 +4,8 @@ import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.service.model.DrinksDTO
 import com.example.homebar.recipesearch.service.model.RecipeDTO
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RecipeRepository(
     private val
@@ -30,13 +32,19 @@ class RecipeRepository(
     }
 
 
+    suspend fun getRandomCocktail(): Drinks? =
+        withContext(Dispatchers.IO) {
+            val url = RANDOM_COCKTAIL
+            homeBarService.getRecipe(url).toDomainRecipeModel().drinks?.get(0)
+        }
+
     suspend fun getRecipeByID(id: String): Drinks? {
         val url = "$COCKTAIL_BY_ID$id"
         return homeBarService.getRecipeById(url).toDomainRecipeModel().drinks?.get(0)
     }
 }
 
-
+// te extensiony do mapowania przenieść do osobnego pliku w modelach
 fun RecipeDTO?.toDomainRecipeModel(): Recipe {
     return Recipe(drinks = this?.drinks?.map {
         Drinks(
@@ -153,3 +161,4 @@ const val COCKTAIL_BY_INGREDIENT = "filter.php?i="
 const val COCKTAIL_BY_GLASS = "filter.php?g="
 const val COCKTAIL_BY_ALCOHOL = "filter.php?a="
 const val COCKTAIL_BY_ID = "lookup.php?i="
+const val RANDOM_COCKTAIL = "random.php"

@@ -2,13 +2,14 @@ package com.example.homebar.recipedetails
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.homebar.coroutinesScopeUtils.safeLaunch
 import com.example.homebar.recipedetails.model.DetailsExtraData
 import com.example.homebar.recipedetails.model.ExtraDataConstDetails
 import com.example.homebar.recipesearch.model.Drinks
-import com.example.homebar.recipesearch.service.COCKTAIL_BY_ID
 import com.example.homebar.recipesearch.service.RecipeRepository
-import com.example.homebar.recipesearch.service.toDomainRecipeModel
 import com.example.homebar.recipesearch.ui.UnitAndIngredients
+import com.example.homebar.room.DrinkDatabaseRepository
+import com.example.homebar.room.DrinkEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,16 +17,13 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val recipeRepository: RecipeRepository //zmienic nazwe RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    private val drinkDbRepository: DrinkDatabaseRepository
+
 ) : ViewModel() {
 
     private val extraData: DetailsExtraData? =
         savedStateHandle[ExtraDataConstDetails.EXTRA_DATA_RECIPE_DETAILS]
-
-    // val idDrinkLiveData = MutableLiveData<Int>(extraData?.idDrink)
-    init {
-        searchDetailsForID()
-    }
 
     private val _imageLD = MutableLiveData<String>()
     val image: LiveData<String> = _imageLD
@@ -33,54 +31,93 @@ class RecipeDetailsViewModel @Inject constructor(
     private val _drinkNameLD = MutableLiveData<String>()
     val drinkName: LiveData<String> = _drinkNameLD
 
-    private val _detailedRecipeDrinkLD = MutableLiveData<String>()
-    val detailedRecipeDrink: LiveData<String> = _detailedRecipeDrinkLD
+    private val _detailedDrinkInstructionLD = MutableLiveData<String>()
+    val detailedDrinkInstructionLD: LiveData<String> = _detailedDrinkInstructionLD
 
-    private val _detailedInstructionDrinkLD = MutableLiveData<String>()
-    val detailedInstructionDrinkLD: LiveData<String> = _detailedInstructionDrinkLD
+    private val _buttonFavLD = MutableLiveData<Boolean>(false)
+    val buttonFavLD: LiveData<Boolean> = _buttonFavLD
 
     private val _ingredientList = MutableLiveData<List<UnitAndIngredients>>()
     val ingredientList: LiveData<List<UnitAndIngredients>> = _ingredientList
 
-
-    private fun searchDetailsForID() {                       // zapytanie do backendu
-        viewModelScope.launch {
-            try {
-                val response = recipeRepository.getRecipeByID(extraData?.idDrink.toString())
-                response?.strDrinkThumb?.let {
-                    _imageLD.value = it
-                }
-                val responseStrDrink =
-                    recipeRepository.getRecipeByID(extraData?.idDrink.toString())
-                responseStrDrink?.strDrink?.let {
-                    _drinkNameLD.value = it
-                }
-                val detailedDrinkResponse =
-                    recipeRepository.getRecipeByID(extraData?.idDrink.toString())
-                val instruction = detailedDrinkResponse?.strInstructions
-
-                _ingredientList.value = detailedDrinkResponse?.mapToIngredientList()
-
-                instruction.let {
-                    _detailedRecipeDrinkLD.value = it
-                }
-
-                _detailedInstructionDrinkLD.value.let {
-                    _detailedInstructionDrinkLD.value = it
-                }
-
-            } catch (e: Exception) {
-                // Retrofit error
-                Log.e("MYAPP", "exception", e)
-            }
-
-        }
-
-
+    var currentPresentedDrinkId = 0
+    init {
+        searchDetailsForID()
     }
 
+
+
+    private fun searchDetailsForID() {
+        val drinkId =  extraData?.idDrink
+        val responseWithDataBase = drinkId?.let{ drinkDbRepository.getDrink(id = it) }
+        if (responseWithDataBase != null) {
+            _buttonFavLD.value = true
+            responseWithDataBase.drinkId.let {
+                currentPresentedDrinkId = it
+            }
+            responseWithDataBase.drinkName.let {
+                _drinkNameLD.value = it
+            }
+            responseWithDataBase.drinkUrl.let {
+                _imageLD.value = it
+            }
+            responseWithDataBase.drinkDesc.let {
+                _detailedDrinkInstructionLD.value = it
+            }
+            responseWithDataBase.drinkUnitAndIngredients.let {
+                _ingredientList.value = it
+            }
+
+
+
+        } else {
+            viewModelScope.safeLaunch(
+                actionToTake = {
+                    val response =
+                        recipeRepository.getRecipeByID(drinkId.toString())
+
+                    response?.idDrink?.let {
+                        currentPresentedDrinkId = it
+                    }
+
+                    response?.strDrinkThumb?.let {
+                        _imageLD.value = it
+                    }
+                    response?.strDrink?.let {
+                        _drinkNameLD.value = it
+                    }
+                    _ingredientList.value = response?.mapToIngredientList()
+
+                    response?.strInstructions.let {
+                        _detailedDrinkInstructionLD.value = it
+                    }
+                },
+                onException = {error->
+                    Log.e("MYAPP", "exception", error)
+                }
+            )
+        }
+    }
+    fun saveDateAfterClickFavouriteButton(){
+        drinkDbRepository.saveDrink(
+            DrinkEntity(
+                drinkId = currentPresentedDrinkId,
+                drinkName = _drinkNameLD.value ?: "Example text",
+                drinkDesc = _detailedDrinkInstructionLD.value ?: "Example instruction",
+                drinkUrl = _imageLD.value ?: "Example URL",
+                drinkUnitAndIngredients = _ingredientList.value?: listOf()
+            )
+        )
+    }
+    fun deleteDateAfterUnclickFavouriteButton(){
+        drinkDbRepository.deleteDrink(
+            DrinkEntity(
+                drinkId = currentPresentedDrinkId
+            )
+        )
+    }
     fun getProperStringToShare(): String {
-        var actualString = StringBuilder()
+        val actualString = StringBuilder()
         actualString.clear()
         actualString.append("Drink name: ${drinkName.value}" + "\n")
         val mutableList = _ingredientList.value?.toMutableList()
@@ -88,14 +125,13 @@ class RecipeDetailsViewModel @Inject constructor(
             it.ingredient.isBlank()
         }
         actualString.append("Ingredients:\n$mutableList\n")
-        actualString.append("Recipe:\n${detailedRecipeDrink.value}" + "\n")
+        actualString.append("Recipe:\n${detailedDrinkInstructionLD.value}" + "\n")
         actualString.append("Link to image: " + image.value + "\n")
         return actualString.toString()
     }
 
 
 }
-
 private fun Drinks.mapToIngredientList(): List<UnitAndIngredients> {
     return listOf(
         UnitAndIngredients(this.strMeasure1.orEmpty(), this.strIngredient1.orEmpty()),

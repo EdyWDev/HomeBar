@@ -2,7 +2,7 @@ package com.example.homebar.recipesearch.model
 
 object RecipeSearchConsts{
     val typeOfGlass = listOf(
-        /*  "Choose the type of glass:",*/
+        "Choose the type of glass:",
         "Highball glass",
         "Cocktail glass",
         "Old-fashioned glass",

@@ -24,10 +24,5 @@ class FavouriteDrinkViewModel @Inject constructor(
             _favouriteDrinkList.value = drinkDbRepository.getAllDrink()
         }
     }
-
-
-
-
 }
 
-//intent

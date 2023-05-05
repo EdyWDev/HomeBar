@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.homebar.R
 import com.example.homebar.databinding.RecyclerviewItemRowBinding
-import com.example.homebar.recipedetails.ui.RecipeDetailsActivity
 import com.example.homebar.recipesearch.model.Drinks
 
-class RecyclerAdapter(
+// nazwa nie mowic nic o tym ze to widok powiazany z recyler view
+class RecyclerSearch(
    // private val onItemClick: (Drinks) -> Unit,
     var drinksList: List<Drinks>, // CZY TO NAPEWNO TA KLASA???
     private val onItemClick: (Drinks) -> Unit,
-) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerSearch.ViewHolder>() {
 
 
     inner class ViewHolder(val binding: RecyclerviewItemRowBinding) :
@@ -38,11 +37,6 @@ class RecyclerAdapter(
 
             with(drinksList[position]) {
                 binding.drinkName.text = this.strDrink
-                // val drinkIngredientsText =  getIngredientsText(this)
-              //   binding.drinkName.text = drinkIngredientsText/*.substring(0, drinkIngredientsText.length-1)*/
-                   /*.substring(0, getIngredientsText(this).length)*/
-
-                  // binding.drinkIngredients.text = getIngredientsText(this)
 
                 Glide.with(holder.binding.root.context)
                     .load(strDrinkThumb)                               // poczytac o cache Glide
