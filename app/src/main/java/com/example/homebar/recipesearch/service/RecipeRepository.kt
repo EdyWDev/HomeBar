@@ -2,14 +2,13 @@ package com.example.homebar.recipesearch.service
 
 import com.example.homebar.recipesearch.model.Drinks
 import com.example.homebar.recipesearch.model.Recipe
+import com.example.homebar.recipesearch.service.model.DrinksModel
 import com.example.homebar.recipesearch.service.model.DrinksDTO
-import com.example.homebar.recipesearch.service.model.RecipeDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RecipeRepository(
-    private val
-    homeBarService: RecipeService
+    private val homeBarService: RecipeService
 ) {
     suspend fun getRecipeByCocktailName(cocktailName: String): Recipe {
         val url = "$COCKTAIL_BY_NAME$cocktailName"
@@ -45,7 +44,7 @@ class RecipeRepository(
 }
 
 // te extensiony do mapowania przenieść do osobnego pliku w modelach
-fun RecipeDTO?.toDomainRecipeModel(): Recipe {
+fun DrinksDTO?.toDomainRecipeModel(): Recipe {
     return Recipe(drinks = this?.drinks?.map {
         Drinks(
             idDrink = it.idDrink,
@@ -101,7 +100,7 @@ fun RecipeDTO?.toDomainRecipeModel(): Recipe {
     })
 }
 
-fun DrinksDTO.toDomainDrinksModel(): Drinks {
+fun DrinksModel.toDomainDrinksModel(): Drinks {
     return Drinks(
         idDrink = this.idDrink,
         strDrink = this.strDrink,

@@ -57,7 +57,8 @@ class RecipeSearchActivity : AppCompatActivity() {
         val arrayAdapterSearch = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
-            viewModel.typeOfSearch
+            viewModel.
+            typeOfSearch
         )
         binding.searchSpinner.adapter = arrayAdapterSearch
         binding.searchSpinner.onItemSelectedListener = object :
@@ -128,7 +129,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         viewModel.spinnerGlassResponseLD.observe(this, glassResultObserver)
     }
 
-    // to moze w formie extensiona do EditText i przenieść to wtedy do jakiś utilsów od widoku?
+    // to moze w formie extension do EditText i przenieść to wtedy do jakiś utilsów od widoku?
 fun enterKeyListener(){
     binding.searchView.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
         if (keyCode == KeyEvent.KEYCODE_ENTER){

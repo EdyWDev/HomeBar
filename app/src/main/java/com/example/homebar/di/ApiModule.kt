@@ -50,9 +50,7 @@ object ApiModule {
         @Singleton
         fun provide(@ApplicationContext context: Context) = Room.databaseBuilder(
             context, DrinkDatabase::class.java, DRINK_DATABASE)
-            .allowMainThreadQueries() // Tutaj raczej tego nie powinno byc, nie powinny calle do bazy danych leciec na glownym watku
-                // jak sprobujesz to wykomentowac to najprawdopobniej dostaniesz crash przy probie zapisu albo poleci ostrzezenie w logach\
-            // tak czy siak pasuje zebys sprobowala to usunac i sfixowac problem
+            .allowMainThreadQueries()
             .addTypeConverter(DrinkEntitiesConverters(GsonParser(Gson())))
             .fallbackToDestructiveMigration()
             .build()

@@ -40,7 +40,8 @@ class RecipeSearchViewModel @Inject constructor(
     var searchViewMessage = MutableLiveData<String>()
 
 
-    private val _response = MutableLiveData<Recipe>()
+    private val
+            _response = MutableLiveData<Recipe>()
     val responseLD: LiveData<Recipe> = _response
 
     fun searchForResult() {
