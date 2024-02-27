@@ -1,19 +1,17 @@
 package com.example.homebar.welcome
 
-import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.homebar.model.PresenceOfAlcoholCategory
+import com.example.homebar.coroutinesScopeUtils.safeLaunch
 import com.example.homebar.recipedetails.model.DetailsExtraData
 import com.example.homebar.recipedetails.model.ExtraDataConstDetails
-import com.example.homebar.recipesearch.model.Drinks
-import com.example.homebar.recipesearch.model.Recipe
 import com.example.homebar.recipesearch.service.RecipeRepository
 import com.example.homebar.room.DrinkDatabaseRepository
-import com.example.homebar.room.DrinkEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.parcelize.Parcelize
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,9 +31,10 @@ class WelcomeViewModel @Inject constructor(
 
     private val _idDrinkRandomLD = MutableLiveData<Int>()
     val idDrinkRandom: LiveData<Int> = _idDrinkRandomLD
+
     fun searchRandom() {
-        viewModelScope.launch {
-            try {
+        viewModelScope.safeLaunch(
+            actionToTake = {
                 val responseRandom = recipeRepository.getRandomCocktail()
                 responseRandom?.idDrink.let { _idDrinkRandomLD.value = it }
                 responseRandom?.strDrinkThumb.let {
@@ -45,40 +44,13 @@ class WelcomeViewModel @Inject constructor(
                 responseRandom?.strDrink.let {
                     _drinkNameRandomLD.value = it
                 }
-//                drinkDbRepository.saveDrink(
-//                    DrinkEntity(
-//                        drinkId = responseRandom?.idDrink ?: 0,
-//                        drinkName = responseRandom?.strDrink ?: "Example text",
-//                        drinkDesc = responseRandom?.strInstructions ?: "Example instruction",
-//                        drinkUrl = responseRandom?.strDrinkThumb ?: "example URL"
-//                    ))
-            } catch (e: Exception) {
-                // Retrofit error
-                Log.e("MYAPP", "exception", e)
+            },
+            onException = { error ->
+                Log.e("MYAPP", "exception", error)
             }
-        }
-
-    }
-    
-    
-    fun searchRandomById() {
-        viewModelScope.launch {
-
-            try {
-                val getIdDrinkRandom = recipeRepository.getRandomCocktail()
-                getIdDrinkRandom?.idDrink.let {
-                    _idDrinkRandomLD.value = it
-                }
-            } catch (e: Exception) {
-                // Retrofit error
-                Log.e("MYAPP", "exception", e)
-
-            }
-        }
+        )
     }
 }
-
-
 
 
 

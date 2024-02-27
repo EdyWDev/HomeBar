@@ -31,15 +31,14 @@ class WelcomeActivity : AppCompatActivity() {
 
 
         binding.drinkWithAlcoholBT.setOnClickListener {
+
             navigateToRecipeSearch(
                 extraData = RecipeSearchExtraData(
                     WITH_ALCOHOL
                 )
             )
+
         }
-
-        //JAK TO ROZROZNIC NA PODSTAWIE TYPU EXTRA DATY?
-
         binding.favouriteBT.setOnClickListener {
             navigateToFavouriteDrink(
                 extraData = DetailsExtraData
@@ -80,9 +79,6 @@ class WelcomeActivity : AppCompatActivity() {
 
     }
 
-
-    // Tutaj musisz 3 razy wywolac metode View.Visibile - poczytaj o ConstraintViewGroup i na podstawie tego
-// mozesz to zrobic tutaj lepiej/krócej
     private fun setVisibilityRandomDrink() {
         binding.group.visibility = View.VISIBLE
     }

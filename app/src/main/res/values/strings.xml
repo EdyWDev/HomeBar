@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">HomeBar</string>
-
+    <string name="more_informationBT">Show more</string>
+    <string name="ingredients">INGREDIENTS</string>
+    <string name="instructions">INSTRUCTIONS</string>
+    <string name="search_by">Search by:</string>
+    <string name="enter_your_search_term">Enter your search term</string>
+    <string name="find_a_recipe">Find a recipe</string>
+    <string name="favorite">Favorite</string>
+    <string name="random_cocktail">Random cocktail</string>
 </resources>

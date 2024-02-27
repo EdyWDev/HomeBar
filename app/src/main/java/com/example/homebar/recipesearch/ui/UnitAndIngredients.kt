@@ -1,6 +1,10 @@
 package com.example.homebar.recipesearch.ui
 
-data class UnitAndIngredients(var unitIngredient: String, var ingredient: String) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class UnitAndIngredients(var unitIngredient: String, var ingredient: String): Parcelable {
 
     override fun toString() = "$unitIngredient $ingredient"
 }

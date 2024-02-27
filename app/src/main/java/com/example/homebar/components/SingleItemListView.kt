@@ -3,6 +3,7 @@ package com.example.homebar.components
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.homebar.R
@@ -29,7 +30,11 @@ class SingleItemListView @JvmOverloads constructor(
     }
 
     fun setTextOnFields(unitIngredients: String, ingredients: String) {
-        unitIngredientsText.text = unitIngredients
+        if(unitIngredients.isNotBlank()){
+        unitIngredientsText.text = unitIngredients}
+        else{
+          unitIngredientsText.visibility = View.GONE
+        }
         ingredientsText.text = ingredients
     }
 
